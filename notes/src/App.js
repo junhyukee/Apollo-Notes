@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import { withRouter, Route, Link } from 'react-router-dom';
+
 import * as actions from './actions'
 import Notes from './components/Notes';
 import SingleNote from './components/SingleNote';

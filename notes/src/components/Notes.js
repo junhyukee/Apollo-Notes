@@ -3,6 +3,8 @@ import Note from './Note';
 import { Input } from 'reactstrap';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Link } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import fetchNotes from '../queries/fetchNotes';
 
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -58,7 +60,7 @@ class Notes extends Component {
 
     initializeData = () => {
         this.setState({
-            shownNotes: this.props.notes
+            shownNotes: this.props.data.notes
         })
     }
 
@@ -80,7 +82,7 @@ class Notes extends Component {
     }
 
     render() {
-        if (this.props.fetchingNotes){
+        if (this.props.data.loading){
             return (<div></div>)
         }
         return (
@@ -94,7 +96,7 @@ class Notes extends Component {
                                 style={getListStyle(snapshot.isDraggingOver)}
                             >
                                 {this.state.shownNotes.map((note, index) => (
-                                    <Draggable key={note._id} draggableId={note._id} index={index}>
+                                    <Draggable key={note.id} draggableId={note.id} index={index}>
                                         {(provided, snapshot) => (
                                             <div
                                                 ref={provided.innerRef}
@@ -105,8 +107,8 @@ class Notes extends Component {
                                                     provided.draggableProps.style
                                                 )}
                                             >
-                                                <Link to={`/notes/${note._id}`}>
-                                                    <Note id={note._id} title={note.title} content={note.textBody} tags={note.tags} /> 
+                                                <Link to={`/notes/${note.id}`}>
+                                                    <Note id={note.id} title={note.title} content={note.content} tags={note.tags} /> 
                                                 </Link>
                                             </div>
                                         )}
@@ -130,4 +132,4 @@ class Notes extends Component {
     }
 }
 
-export default Notes;
+export default graphql(fetchNotes)(Notes);
