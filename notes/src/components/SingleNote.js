@@ -5,6 +5,7 @@ import Note from './Note';
 import EditNote from './EditNote';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import fetchNote from '../queries/fetchNote';
+import fetchNotes from '../queries/fetchNotes';
 
 class SingleNote extends Component {
     constructor(props){
@@ -30,7 +31,8 @@ class SingleNote extends Component {
         this.props.mutate({
             variables: { 
                 id: this.props.match.params.id 
-            }
+            },
+            refetchQueries: [{ query: fetchNotes }]
         }).then(() => this.props.history.push('/'))
     }
 

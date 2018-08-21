@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { connect } from 'react-redux';
-import { withRouter, Route, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
-import * as actions from './actions'
 import Notes from './components/Notes';
 import SingleNote from './components/SingleNote';
 import NoteForm from './components/NoteForm';
@@ -38,15 +36,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    fetchingNotes: state.fetchingNotes,
-    fetchingNote: state.fetchingNotes,
-    notes: state.notes,
-    note: state.note,
-    error: state.error,
-    updatingNote: state.updatingNote,
-  }
-}
-
-export default withRouter(connect(mapStateToProps, actions)(App))
+export default App
