@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import fetchNotes from '../queries/fetchNotes';
 
 class NoteForm extends Component {
     constructor(props){
@@ -30,7 +31,8 @@ class NoteForm extends Component {
                 title: this.state.title,
                 content: this.state.content,
                 tags: tagArray
-            }
+            },
+            refetchQueries: [{ query: fetchNotes }]
         }).then(() => this.props.history.push('/'));
         this.setState({
             title: '',
