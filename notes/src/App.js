@@ -31,7 +31,7 @@ class App extends Component {
           <NoteForm {...props} />
         )} />
         <Route path="/notes/:id" render={props => (
-          <SingleNote {...props} note={this.props.note} />
+          <SingleNote {...props} />
         )}  />
       </div>
     );

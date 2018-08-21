@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import Note from './Note';
 import EditNote from './EditNote';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
@@ -26,7 +27,11 @@ class SingleNote extends Component {
     }
 
     deleteNote = () => {
-        this.props.deleteNote(this.props.match.params.id, this.props.history)
+        this.props.mutate({
+            variables: { 
+                id: this.props.match.params.id 
+            }
+        }).then(() => this.props.history.push('/'))
     }
 
     render() {
@@ -54,6 +59,14 @@ class SingleNote extends Component {
     }
 }
 
-export default graphql(fetchNote, {
+const mutation = gql`
+    mutation DeleteNote($id: ID){
+        deleteNote(id: $id){
+            id
+    }
+}
+`
+
+export default graphql(mutation)(graphql(fetchNote, {
     options: (props) => { return { variables: { id: props.match.params.id }}}
-})(SingleNote);
+})(SingleNote));
