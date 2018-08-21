@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
 class NoteForm extends Component {
     constructor(props){
@@ -23,12 +25,13 @@ class NoteForm extends Component {
         } else {
             tagArray = this.state.tags.split(' ').join('').split(',')
         }
-        let newNote = {
-            title: this.state.title,
-            content: this.state.content,
-            tags: tagArray
-        }
-        this.props.addNote(newNote, this.props.history);
+        this.props.mutate({
+            variables: {
+                title: this.state.title,
+                content: this.state.content,
+                tags: tagArray
+            }
+        }).then(() => this.props.history.push('/'));
         this.setState({
             title: '',
             content: '',
@@ -57,5 +60,14 @@ class NoteForm extends Component {
     }
 }
 
+const mutation = gql`
+    mutation AddNote($title: String, $content: String, $tags: [String]) {
+        addNote(title: $title, content: $content, tags: $tags){
+            title
+            content
+            tags
+        }
+    }
+`;
 
-export default NoteForm;
+export default graphql(mutation)(NoteForm);

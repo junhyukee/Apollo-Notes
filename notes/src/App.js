@@ -28,7 +28,7 @@ class App extends Component {
           <Notes {...props} />
         )} />
         <Route path="/note/add" render={props => (
-          <NoteForm {...props} addNote={this.props.addNote} />
+          <NoteForm {...props} />
         )} />
         <Route path="/notes/:id" render={props => (
           <SingleNote {...props} note={this.props.note} />
