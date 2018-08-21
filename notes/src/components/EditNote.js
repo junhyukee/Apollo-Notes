@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import fetchNote from '../queries/fetchNote';
 
 class EditNote extends Component {
     constructor(props) {
@@ -23,13 +26,15 @@ class EditNote extends Component {
         } else {
             tagArray = this.state.tags.split(' ').join('').split(',')
         }
-        let updatedNote = {
-            id: this.props.id,
-            title: this.state.title,
-            content: this.state.content,
-            tags: tagArray
-        }
-        this.props.updateNote(updatedNote);
+        this.props.mutate({
+            variables: {
+                id: this.props.id,
+                title: this.state.title,
+                content: this.state.content,
+                tags: tagArray
+            },
+            refetchQueries: [{ query: fetchNote, variables: { id: this.props.id }} ]
+        });
         this.props.onCancel();
     }
 
@@ -55,4 +60,12 @@ class EditNote extends Component {
     }
 }
 
-export default EditNote;
+const mutation = gql`
+    mutation UpdateNote($id: ID, $title: String, $content: String, $tags: [String]) {
+        updateNote(id: $id, title: $title, content: $content, tags: $tags){
+            id
+        }
+    }
+`
+
+export default graphql(mutation)(EditNote);

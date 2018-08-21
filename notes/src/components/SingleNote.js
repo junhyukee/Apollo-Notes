@@ -44,7 +44,7 @@ class SingleNote extends Component {
                 <Button onClick={this.toggleUpdate} color="primary">Update</Button>
                 <Button onClick={this.toggleModal} color="danger">Delete</Button>
                 {this.state.updateActive !== false
-                    ? <EditNote onCancel={this.toggleUpdate} title={this.props.data.note.title} content={this.props.data.note.content} tags={this.props.data.note.tags} updateNote={this.props.updateNote} id={this.props.match.params.id} />
+                    ? <EditNote onCancel={this.toggleUpdate} title={this.props.data.note.title} content={this.props.data.note.content} tags={this.props.data.note.tags} id={this.props.match.params.id} />
                     : null
                 }
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
