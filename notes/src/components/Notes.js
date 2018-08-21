@@ -47,14 +47,13 @@ class Notes extends Component {
     }
 
     componentDidMount = () => {
-        this.props.fetchNotes();
         setTimeout(() => this.initializeData(), 500);
     }
 
     searchInput = (event) => {
         let searchTerm = event.target.value;
         this.setState(() => {
-            return ({ shownNotes: this.props.notes.filter(note => note.title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)})
+            return ({ shownNotes: this.props.data.notes.filter(note => note.title.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)})
         });
     }
 

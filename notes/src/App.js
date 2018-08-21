@@ -25,7 +25,7 @@ class App extends Component {
           </Nav>
         </Navbar>
         <Route exact path="/" render={props => (
-          <Notes {...props} notes={this.props.notes} fetchNotes={this.props.fetchNotes} fetchingNotes={this.props.fetchingNotes} />
+          <Notes {...props} />
         )} />
         <Route path="/note/add" render={props => (
           <NoteForm {...props} addNote={this.props.addNote} />

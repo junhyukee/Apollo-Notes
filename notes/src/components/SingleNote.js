@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { fetchNote, deleteNote, updateNote } from '../actions';
+import { graphql } from 'react-apollo';
 import Note from './Note';
 import EditNote from './EditNote';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import fetchNote from '../queries/fetchNote';
 
 class SingleNote extends Component {
     constructor(props){
@@ -14,10 +13,6 @@ class SingleNote extends Component {
             modal: false
         }
     }
-    componentDidMount(){
-        this.props.fetchNote(this.props.match.params.id);
-    }
-
     toggleUpdate = () => {
         this.setState((prevState) => { 
             return {updateActive: !prevState.updateActive}
@@ -35,16 +30,16 @@ class SingleNote extends Component {
     }
 
     render() {
-        if (!this.props.fetchedNote){
+        if (this.props.data.loading){
             return(<div></div>)
         }
         return (
             <div>
-                <Note title={this.props.note.title} content={this.props.note.textBody} tags={this.props.note.tags} />
+                <Note title={this.props.data.note.title} content={this.props.data.note.content} tags={this.props.data.note.tags} />
                 <Button onClick={this.toggleUpdate} color="primary">Update</Button>
                 <Button onClick={this.toggleModal} color="danger">Delete</Button>
                 {this.state.updateActive !== false
-                    ? <EditNote onCancel={this.toggleUpdate} title={this.props.note.title} content={this.props.note.textBody} tags={this.props.note.tags} updateNote={this.props.updateNote} id={this.props.match.params.id} />
+                    ? <EditNote onCancel={this.toggleUpdate} title={this.props.data.note.title} content={this.props.data.note.content} tags={this.props.data.note.tags} updateNote={this.props.updateNote} id={this.props.match.params.id} />
                     : null
                 }
                 <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
@@ -59,13 +54,6 @@ class SingleNote extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        fetchingNote: state.fetchingNotes,
-        fetchedNote: state.fetchedNote,
-        note: state.note,
-        error: state.error
-    }
-}
-
-export default withRouter(connect(mapStateToProps, { fetchNote, deleteNote, updateNote })(SingleNote))
+export default graphql(fetchNote, {
+    options: (props) => { return { variables: { id: props.match.params.id }}}
+})(SingleNote);
