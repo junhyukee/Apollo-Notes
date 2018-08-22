@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 
 export default class AuthForm extends Component {
     constructor(props) {
@@ -14,28 +15,28 @@ export default class AuthForm extends Component {
 
     render() {
         return (
-            <div className="row">
-                <form onSubmit={this.onSubmit} className="col s6">
-                    <div className="input-field">
-                        <input
+            <div className="auth-form">
+                <Form onSubmit={this.onSubmit}>
+                    <FormGroup>
+                        <Input
                             placeholder="Username"
                             value={this.state.username}
                             onChange={e => this.setState({ username: e.target.value })}
                         />
-                    </div>
-                    <div className="input-field">
-                        <input
+                    </FormGroup>
+                    <FormGroup>
+                        <Input
                             placeholder="Password"
                             type="password"
                             value={this.state.password}
                             onChange={e => this.setState({ password: e.target.value })}
                         />
-                    </div>
+                    </FormGroup>
                     <div className="errors">
                         {this.props.errors.map(err => <div key={err}>{err}</div>)}
                     </div>
-                    <button className="btn">Submit</button>
-                </form>
+                    <Button>Submit</Button>
+                </Form>
             </div>
         )
     }

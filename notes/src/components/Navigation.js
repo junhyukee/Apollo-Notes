@@ -3,8 +3,15 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import query from '../queries/CurrentUser';
 import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class Navigation extends Component {
+
+    onLogoutClick = () => {
+        this.props.mutate({
+            refetchQueries: [{ query }]
+        });
+    }
 
     renderButtons = () => {
         const { loading, user } = this.props.data;
@@ -14,19 +21,19 @@ class Navigation extends Component {
         if (user) {
             return (
                 <NavItem>
-                    <NavLink>Logout</NavLink>
+                    <NavLink onClick={this.onLogoutClick}>Logout</NavLink>
                 </NavItem>
             )
         } else {
             return (
-                <div>
+                <React.Fragment>
                     <NavItem>
                         <NavLink tag={Link} to="/login">Login</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink tag={Link} to="/signup">Signup</NavLink>
                     </NavItem>
-                </div>
+                </React.Fragment>
             )
         }
     }
@@ -49,4 +56,13 @@ class Navigation extends Component {
     }
 }
 
-export default graphql(query)(Navigation);
+const mutation = gql`
+    mutation {
+        logout {
+            id
+            username
+        }
+    }
+`
+
+export default graphql(mutation)(graphql(query)(Navigation));

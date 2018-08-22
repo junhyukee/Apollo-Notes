@@ -17,13 +17,16 @@ class Login extends Component {
                 password
             },
             refetchQueries: [{ query }]
-        }).catch(res => {
+        })
+        .catch(res => {
             let errors = res.graphQLErrors.map(err => err.message);
             this.setState({ errors })
         })
+
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <h3>Login</h3>

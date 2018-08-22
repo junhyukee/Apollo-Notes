@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import fetchNotes from '../queries/fetchNotes';
+import CurrentUser from '../queries/CurrentUser';
 
 class NoteForm extends Component {
     constructor(props){
@@ -30,7 +31,8 @@ class NoteForm extends Component {
             variables: {
                 title: this.state.title,
                 content: this.state.content,
-                tags: tagArray
+                tags: tagArray,
+                user: this.props.data.user
             },
             refetchQueries: [{ query: fetchNotes }]
         }).then(() => this.props.history.push('/'));
@@ -63,13 +65,14 @@ class NoteForm extends Component {
 }
 
 const mutation = gql`
-    mutation AddNote($title: String, $content: String, $tags: [String]) {
-        addNote(title: $title, content: $content, tags: $tags){
+    mutation AddNote($title: String, $content: String, $tags: [String], $user: String) {
+        addNote(title: $title, content: $content, tags: $tags, user: $user){
             title
             content
             tags
+            user
         }
     }
 `;
 
-export default graphql(mutation)(NoteForm);
+export default graphql(mutation)(graphql(CurrentUser)(NoteForm));

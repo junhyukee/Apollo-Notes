@@ -18,6 +18,10 @@ button {
   margin: 10px;
 }
 
+.nav-link {
+  cursor: pointer;
+}
+
 .note-form {
   width: 60%;
   margin: 1rem auto;
@@ -59,4 +63,9 @@ button {
   text-align:center;
   width: 60%;
   margin: 1rem auto;
+}
+
+.auth-form {
+  width: 60%;
+  margin: 0 auto;
 }
