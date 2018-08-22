@@ -47,7 +47,7 @@ class Notes extends Component {
     }
 
     componentDidMount = () => {
-        setTimeout(() => this.initializeData(), 500);
+        setTimeout(() => this.initializeData(), 1000);
     }
 
     searchInput = (event) => {
