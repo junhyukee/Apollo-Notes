@@ -7,6 +7,7 @@ import SingleNote from './components/SingleNote';
 import NoteForm from './components/NoteForm';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
+import Signup from './components/Signup';
 
 
 
@@ -25,7 +26,7 @@ class App extends Component {
           <SingleNote {...props} />
         )}  />
         <Route path="/login" component={Login} />
-        {/* <Route path="/signup" component={Signup} /> */}
+        <Route path="/signup" component={Signup} />
       </div>
     );
   }

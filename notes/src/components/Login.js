@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import AuthForm from './AuthForm';
 import query from '../queries/CurrentUser';
 
-class LoginForm extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = { errors: [] }
@@ -42,4 +42,4 @@ const mutation = gql `
     }
 `
 
-export default graphql(mutation)(LoginForm);
+export default graphql(mutation)(Login);
