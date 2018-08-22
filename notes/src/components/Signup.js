@@ -10,6 +10,12 @@ class Signup extends Component {
         this.state = { errors: [] }
     }
 
+    componentDidUpdate(prevProps) {
+        if (!prevProps.data.user && this.props.data.user) {
+            this.props.history.push('/');
+        }
+    }
+
     onSubmit = ({ username, password }) => {
         this.props.mutate({
             variables: {
@@ -42,4 +48,4 @@ const mutation = gql`
     }
 `
 
-export default graphql(mutation)(Signup);
+export default graphql(mutation)(graphql(query)(Signup));
