@@ -1,27 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import query from '../queries/CurrentUser';
+import { graphql } from 'react-apollo';
 
-const Navigation = () => {
-    return (
-        <Navbar color="light">
-            <NavbarBrand>Notes</NavbarBrand>
-            <Nav>
+class Navigation extends Component {
+
+    renderButtons = () => {
+        const { loading, user } = this.props.data;
+
+        if (loading) { return <div></div> }
+
+        if (user) {
+            return (
                 <NavItem>
-                    <NavLink tag={Link} to="/">View Notes</NavLink>
+                    <NavLink>Logout</NavLink>
                 </NavItem>
-                <NavItem>
-                    <NavLink tag={Link} to="/note/add">New Note</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag={Link} to="/login">Login</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag={Link} to="/signup">Signup</NavLink>
-                </NavItem>
-            </Nav>
-        </Navbar>
-    )
+            )
+        } else {
+            return (
+                <div>
+                    <NavItem>
+                        <NavLink tag={Link} to="/login">Login</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/signup">Signup</NavLink>
+                    </NavItem>
+                </div>
+            )
+        }
+    }
+
+    render() {
+        return (
+            <Navbar color="light">
+                <NavbarBrand>Notes</NavbarBrand>
+                <Nav>
+                    <NavItem>
+                        <NavLink tag={Link} to="/">View Notes</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/note/add">New Note</NavLink>
+                    </NavItem>
+                    {this.renderButtons()}
+                </Nav>
+            </Navbar>
+        )
+    }
 }
 
-export default Navigation;
+export default graphql(query)(Navigation);

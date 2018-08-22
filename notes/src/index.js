@@ -16,7 +16,7 @@ const cache = new InMemoryCache({
 
 const link = new HttpLink({
     uri: "http://localhost:4000/graphql",
-    credentials: 'same-origin',
+    credentials: 'include',
 });
 
 const client = new ApolloClient({
