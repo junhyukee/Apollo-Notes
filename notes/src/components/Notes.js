@@ -47,9 +47,11 @@ class Notes extends Component {
         }
     }
 
-    // componentDidMount = () => {
-    //     setTimeout(() => this.initializeData(), 1000);
-    // }
+    componentDidMount = () => {
+        if(!this.props.data.loading && this.props.data.notes){
+            this.initializeData();
+        };
+    }
 
     componentDidUpdate(prevProps) {
         if(prevProps.data.loading && !this.props.data.loading){
