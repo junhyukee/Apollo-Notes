@@ -31,7 +31,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? "#b2bec3" : "#dfe6e9",
+    background: isDraggingOver ? "#D3D2D3" : "#F2F1F2",
     padding: grid,
     width: `60%`,
     margin: `1rem auto`,
@@ -59,7 +59,7 @@ class Notes extends Component {
 
     initializeData = () => {
         this.setState({
-            shownNotes: this.props.data.notes
+            shownNotes: this.props.data.notes,
         })
     }
 

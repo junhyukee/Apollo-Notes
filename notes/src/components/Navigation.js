@@ -20,9 +20,14 @@ class Navigation extends Component {
 
         if (user) {
             return (
-                <NavItem>
-                    <NavLink onClick={this.onLogoutClick}>Logout</NavLink>
-                </NavItem>
+                <React.Fragment>
+                    <NavItem>
+                        <NavLink tag={Link} to="/note/add">New Note</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink onClick={this.onLogoutClick}>Logout</NavLink>
+                    </NavItem>
+                </React.Fragment>
             )
         } else {
             return (
@@ -41,14 +46,8 @@ class Navigation extends Component {
     render() {
         return (
             <Navbar color="light">
-                <NavbarBrand>Notes</NavbarBrand>
+                <NavbarBrand tag={Link} to="/">Notes</NavbarBrand>
                 <Nav>
-                    <NavItem>
-                        <NavLink tag={Link} to="/">View Notes</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} to="/note/add">New Note</NavLink>
-                    </NavItem>
                     {this.renderButtons()}
                 </Nav>
             </Navbar>
