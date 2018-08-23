@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Notes from './components/Notes';
 import SingleNote from './components/SingleNote';
@@ -16,8 +16,10 @@ class App extends Component {
       <div className="App">
         <Navigation />
         <Route exact path="/" component={RequireAuth(Notes)} />
-        <Route path="/note/add" component={RequireAuth(NoteForm)} />
-        <Route path="/notes/:id" component={SingleNote} />
+        <Switch>
+          <Route path="/notes/add" component={RequireAuth(NoteForm)} />
+          <Route path="/notes/:id" component={SingleNote} />
+        </Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
       </div>

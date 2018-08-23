@@ -22,7 +22,7 @@ class Navigation extends Component {
             return (
                 <React.Fragment>
                     <NavItem>
-                        <NavLink tag={Link} to="/note/add">New Note</NavLink>
+                        <NavLink tag={Link} to="/notes/add">New Note</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink onClick={this.onLogoutClick}>Logout</NavLink>
