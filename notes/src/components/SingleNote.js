@@ -15,6 +15,11 @@ class SingleNote extends Component {
             modal: false
         }
     }
+
+    componentDidUpdate(){
+        console.log(this.props.data);
+    }
+
     toggleUpdate = () => {
         this.setState((prevState) => { 
             return {updateActive: !prevState.updateActive}
@@ -32,8 +37,14 @@ class SingleNote extends Component {
             variables: { 
                 id: this.props.match.params.id 
             },
-            refetchQueries: [{ query: fetchNotes }]
-        }).then(() => this.props.history.push('/'))
+            refetchQueries: [{ 
+                query: fetchNotes,
+                variables: {
+                    awaitRefetchQueries: true,
+                }
+             }]
+        })
+        .then(() => this.props.history.push('/'))
     }
 
     render() {

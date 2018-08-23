@@ -34,7 +34,12 @@ class NoteForm extends Component {
                 tags: tagArray,
                 user: this.props.data.user
             },
-            refetchQueries: [{ query: fetchNotes }]
+            refetchQueries: [{ 
+                query: fetchNotes,
+                variables: {
+                    awaitRefetchQueries: true,
+                }
+            }]
         }).then(() => this.props.history.push('/'));
         this.setState({
             title: '',

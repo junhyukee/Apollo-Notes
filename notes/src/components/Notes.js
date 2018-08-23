@@ -51,10 +51,14 @@ class Notes extends Component {
         if(!this.props.data.loading && this.props.data.notes){
             this.initializeData();
         };
+
     }
 
     componentDidUpdate(prevProps) {
         if(prevProps.data.loading && !this.props.data.loading){
+            this.initializeData();
+        }
+        if (prevProps.data.notes && prevProps.data.notes.length !== this.props.data.notes.length){
             this.initializeData();
         }
     }

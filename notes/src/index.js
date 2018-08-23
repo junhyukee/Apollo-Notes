@@ -15,8 +15,8 @@ const cache = new InMemoryCache({
 });
 
 const link = new HttpLink({
-    uri: "https://jhknotesbackend.herokuapp.com/graphql",
-    // uri: "http://localhost:4000/graphql",
+    // uri: "https://jhknotesbackend.herokuapp.com/graphql",
+    uri: "http://localhost:4000/graphql",
     credentials: 'include',
 });
 
