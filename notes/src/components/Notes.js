@@ -42,12 +42,19 @@ class Notes extends Component {
     constructor(props){
         super(props);
         this.state = {
-            shownNotes: []
+            shownNotes: [],
+            done: false
         }
     }
 
-    componentDidMount = () => {
-        setTimeout(() => this.initializeData(), 1000);
+    // componentDidMount = () => {
+    //     setTimeout(() => this.initializeData(), 1000);
+    // }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.data.loading && !this.props.data.loading){
+            this.initializeData();
+        }
     }
 
     searchInput = (event) => {
@@ -60,6 +67,7 @@ class Notes extends Component {
     initializeData = () => {
         this.setState({
             shownNotes: this.props.data.notes,
+            done: true
         })
     }
 
@@ -81,7 +89,7 @@ class Notes extends Component {
     }
 
     render() {
-        if (this.props.data.loading){
+        if (!this.state.done){
             return (<div></div>)
         }
         return (
